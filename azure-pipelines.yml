@@ -56,4 +56,4 @@ steps:
 
 - script: |
     bash run.sh
-  displayName: 'Running pytest'
+  displayName: 'Running pytest ($(demo.part)/$(demo.total))'

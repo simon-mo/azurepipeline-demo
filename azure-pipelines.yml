@@ -10,10 +10,27 @@ pool:
   vmImage: 'ubuntu-latest'
 strategy:
   matrix:
-    Python27:
-      python.version: '2.7'
-    Python36:
+    Python36-Part1:
       python.version: '3.6'
+      demo.test_part: 1
+      demo.test_total: 4
+
+    Python36-Part2:
+      python.version: '3.6'
+      demo.test_part: 2
+      demo.test_total: 4
+
+    Python36-Part3:
+      python.version: '3.6'
+      demo.test_part: 3
+      demo.test_total: 4
+
+    Python36-Part4:
+      python.version: '3.6'
+      demo.test_part: 4
+      demo.test_total: 4
+      
+
 
 steps:
 - task: UsePythonVersion@0
@@ -27,6 +44,10 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+    python get_subset.py --part $(demo.test_part) --total $(demo.test_total) > run.sh
+    cat run.sh
+  displayName: 'Determine which test to run'
+
+- script: |
+    bash run.sh
+  displayName: 'Running pytest'

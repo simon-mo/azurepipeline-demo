@@ -24,7 +24,7 @@ def find_test(part, total):
     chosen_ones = np.array_split(all_tests, total)[part-1]
     print("Chosen {} tests \nFirst {} \nLast {}".format(len(chosen_ones), chosen_ones[0], chosen_ones[-1]), file=sys.stderr)
 
-    print("pytest \\")
+    print('pytest --test-run-title "Part {}/{}"  \\'.format(part, total))
     for t in chosen_ones:
         print('  "{}" \\'.format(t))
     print() 
